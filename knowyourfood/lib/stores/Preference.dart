@@ -9,7 +9,7 @@ class Preference {
 
   Preference.fromJson(Map<String, dynamic> json)
       : name = json['name'] ?? "",
-        prefId = json['topicId'] ?? "",
+        prefId = json['prefId'] ?? "",
         description = json['description'] ?? "",
         category = json['category'] ?? "";
 

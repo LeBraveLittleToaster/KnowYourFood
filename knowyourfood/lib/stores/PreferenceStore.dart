@@ -25,17 +25,26 @@ class PreferenceStore extends ChangeNotifier {
 
   Future<List<Preference>> getFilteredPreferences(List<String> prefIds) {
     Database db = Database(client);
-    List<String> filters = prefIds.map((e) => "prefId=" + e).toList();
-    print(filters);
+    List<String> searchTerms =
+        List.of(prefIds.map((e) => 'prefId=' + e).toList());
+    print(searchTerms);
 
     var completer = new Completer<List<Preference>>();
-    db
-        .listDocuments(collectionId: MyApp.prefsColId, filters: filters)
-        .then((value) {
+    db.listDocuments(collectionId: MyApp.prefsColId, filters: searchTerms).then((value) {
+      print("+++++++++++++++++++++++++++++");
       print(value);
-      completer.complete(json
-          .decode(value.toString())["documents"]
-          .map((e) => Preference.fromJson(e)));
+      print("+++++++++++++++++++++++++++++");
+      print(json.decode(value.toString())["documents"]);
+      print("+++++++++++++++++++++++++++++");
+      List<dynamic> list = json.decode(value.toString())["documents"];
+      print("LIST: " + list.toString());
+      print("+++++++++++++++++++++++++++++");
+      List<Preference> list2 = list.map((e) => Preference.fromJson(e)).toList();
+      print(list2);
+      print("+++++++++++++++++++++++++++++");
+      list2.forEach((element) => print(element.name));
+      completer.complete(list2);
+      print("+++++++++++++++++++++++++++++");
     }).onError((error, stackTrace) {
       print(error);
       completer.completeError("Failed to parse or load preferecens");
