@@ -13,12 +13,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static var projectId = "60cf200213d70";
+  static var prefsColId = "60cf38bba8397";
+  static var prefsRatingColId = "60cf383f29bac";
+
   @override
   Widget build(BuildContext context) {
     Client client = new Client();
     client
         .setEndpoint("https://192.168.0.103/v1")
-        .setProject("60cf200213d70")
+        .setProject(projectId)
         .setSelfSigned();
     return MultiProvider(
       providers: [

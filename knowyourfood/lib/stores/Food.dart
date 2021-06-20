@@ -20,7 +20,7 @@ class Food {
         brandName = json['brandName'],
         description = json['description'],
         prefs = json['prefs'] != null
-            ? List.from(json['prefs'].map((x) => Preference.fromJson(x)))
+            ? List.from(json['prefs'].map((x) => PrefStatement.fromJson(x)))
             : [];
 
   Map<String, dynamic> toJson() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knowyourfood/PrefPageWidget.dart';
 import 'package:knowyourfood/scanner/ScanPageWidget.dart';
 import 'package:knowyourfood/stores/LoginStore.dart';
 import 'package:provider/provider.dart';
@@ -17,14 +18,23 @@ class _HomePageState extends State<HomePageWidget> {
     });
   }
 
+  Widget getPage(int index) {
+    switch (index) {
+      case 0:
+        return ScanPageWidget();
+      case 1:
+        return PrefPageWidget();
+      default:
+        return Text("Logged in");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     LoginStore loginStore = Provider.of<LoginStore>(context, listen: false);
     return Scaffold(
       appBar: getAppBar(loginStore),
-      body: Center(
-        child: _selectedIndex == 0 ? ScanPageWidget() : Text("Logged in"),
-      ),
+      body: Center(child: getPage(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.qr_code_2), label: "Scan"),

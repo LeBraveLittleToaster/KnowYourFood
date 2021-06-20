@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:knowyourfood/scanner/FoodCheckWidget.dart';
 import 'package:knowyourfood/stores/Food.dart';
@@ -10,8 +12,6 @@ class ScanPageWidget extends StatefulWidget {
 }
 
 class _ScanPageState extends State<ScanPageWidget> {
-  bool _isScanning = false;
-
   Food? scannedFood = null;
 
   @override
@@ -30,14 +30,17 @@ class _ScanPageState extends State<ScanPageWidget> {
 
     _onScanStart() async {
       _checkPermissions();
-      setState(() {
-        _isScanning = true;
-      });
       String cameraScanResult = await scanner.scan();
       print("SCANNED: " + cameraScanResult);
-      setState(() {
-        _isScanning = false;
-      });
+      try {
+        Food food = Food.fromJson(json.decode(cameraScanResult));
+        setState(() {
+          scannedFood = food;
+        });
+        print(food.description);
+      } catch (error) {
+        print(error);
+      }
     }
 
     return Stack(
