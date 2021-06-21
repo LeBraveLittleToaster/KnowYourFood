@@ -4,13 +4,13 @@ import 'dart:convert';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:knowyourfood/login/User.dart';
+import 'package:knowyourfood/login/Session.dart';
 
 class LoginStore extends ChangeNotifier {
   Client client;
   bool _isLoggedIn = false;
   bool _isLoading = true;
-  User? user;
+  Session? user;
 
   LoginStore({required this.client});
 
@@ -35,7 +35,7 @@ class LoginStore extends ChangeNotifier {
         .then((Response<dynamic> resp) {
       this._isLoggedIn = true;
       print(resp);
-      this.user = User.fromJson(json.decode(resp.toString()));
+      this.user = Session.fromJson(json.decode(resp.toString()));
     }).onError((AppwriteException error, stackTrace) {
       this._isLoggedIn = false;
       print(error.message);

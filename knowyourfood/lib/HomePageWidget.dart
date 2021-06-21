@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knowyourfood/PrefPageWidget.dart';
 import 'package:knowyourfood/scanner/ScanPageWidget.dart';
+import 'package:knowyourfood/shopview/RegisterFoodWidget.dart';
 import 'package:knowyourfood/stores/LoginStore.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePageWidget> {
       case 1:
         return PrefPageWidget();
       default:
-        return Text("Logged in");
+        return RegisterFoodWidget();
     }
   }
 

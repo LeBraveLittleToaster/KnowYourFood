@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/foundation.dart';
+import 'package:knowyourfood/login/Session.dart';
+import 'package:knowyourfood/login/User.dart';
 import 'package:knowyourfood/main.dart';
 import 'package:knowyourfood/stores/Preference.dart';
 
@@ -25,30 +27,7 @@ class PreferenceStore extends ChangeNotifier {
 
   Future<List<Preference>> getFilteredPreferences(List<String> prefIds) {
     Database db = Database(client);
-    List<String> searchTerms =
-        List.of(prefIds.map((e) => 'prefId=' + e).toList());
-    print(searchTerms);
-
-    var completer = new Completer<List<Preference>>();
-    db.listDocuments(collectionId: MyApp.prefsColId, filters: searchTerms).then((value) {
-      print("+++++++++++++++++++++++++++++");
-      print(value);
-      print("+++++++++++++++++++++++++++++");
-      print(json.decode(value.toString())["documents"]);
-      print("+++++++++++++++++++++++++++++");
-      List<dynamic> list = json.decode(value.toString())["documents"];
-      print("LIST: " + list.toString());
-      print("+++++++++++++++++++++++++++++");
-      List<Preference> list2 = list.map((e) => Preference.fromJson(e)).toList();
-      print(list2);
-      print("+++++++++++++++++++++++++++++");
-      list2.forEach((element) => print(element.name));
-      completer.complete(list2);
-      print("+++++++++++++++++++++++++++++");
-    }).onError((error, stackTrace) {
-      print(error);
-      completer.completeError("Failed to parse or load preferecens");
-    });
+    Completer<List<Preference>> completer = new Completer();
     return completer.future;
   }
 
@@ -79,5 +58,37 @@ class PreferenceStore extends ChangeNotifier {
         this.notifyListeners();
       }
     });
+  }
+
+  void addOrUpdateRating(int rating, String prefId) async {
+    String userId = await getUserId();
+    Database db = new Database(client);
+    try {
+      print("Updating document");
+      PrefRating prefR =
+          userRatings.firstWhere((element) => element.prefId == prefId);
+      db.updateDocument(
+          collectionId: MyApp.prefsRatingColId,
+          documentId: prefR.$id,
+          data: {"rating": rating});
+      prefR.rating = rating;
+      notifyListeners();
+    } catch (error) {
+      print("Creating document");
+      Response<dynamic> resp = await db.createDocument(
+          collectionId: MyApp.prefsRatingColId,
+          data: {"prefId": prefId, "userId": userId, "rating": rating} );
+      PrefRating prefR = PrefRating.fromJson(json.decode(resp.toString()));
+      userRatings.add(prefR);
+      notifyListeners();
+    }
+  }
+
+  Future<String> getUserId() async {
+    Account account = new Account(client);
+    Response<dynamic> resp = await account.get();
+    print(resp);
+    User user = User.fromJson(json.decode(resp.toString()));
+    return user.id;
   }
 }

@@ -14,6 +14,7 @@ class PrefPageWidget extends StatefulWidget {
 class _PrefPageState extends State<PrefPageWidget> {
   @override
   Widget build(BuildContext context) {
+    PreferenceStore prefStore = Provider.of<PreferenceStore>(context);
     return Consumer<PreferenceStore>(builder: (context, prefStore, child) {
       if (prefStore.isLoading) {
         return Center(
@@ -28,7 +29,7 @@ class _PrefPageState extends State<PrefPageWidget> {
             Color? ratingColor = null;
             try {
               PrefRating rating = prefStore.userRatings.firstWhere(
-                  (element) => element.prefId == prefStore.prefs[index]);
+                  (element) => element.prefId == prefStore.prefs[index].prefId);
               switch (rating.rating) {
                 case 1:
                   ratingColor = Colors.red;
@@ -64,19 +65,25 @@ class _PrefPageState extends State<PrefPageWidget> {
                   caption: 'Low',
                   color: Colors.red,
                   icon: Icons.arrow_downward,
-                  onTap: () => {},
+                  onTap: () => {
+                    prefStore.addOrUpdateRating(1, prefStore.prefs[index].prefId)
+                  },
                 ),
                 IconSlideAction(
                   caption: 'Medium',
                   color: Colors.orange,
                   icon: Icons.remove,
-                  onTap: () => {},
+                  onTap: () => {
+                    prefStore.addOrUpdateRating(2, prefStore.prefs[index].prefId)
+                  },
                 ),
                 IconSlideAction(
                   caption: 'High',
                   color: Colors.green,
                   icon: Icons.arrow_upward,
-                  onTap: () => {},
+                  onTap: () => {
+                    prefStore.addOrUpdateRating(3, prefStore.prefs[index].prefId)
+                  },
                 )
               ],
             );

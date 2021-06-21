@@ -5,7 +5,10 @@ class Preference {
   String category;
 
   Preference(
-      {required this.name, required this.prefId, required this.description, required this.category});
+      {required this.name,
+      required this.prefId,
+      required this.description,
+      required this.category});
 
   Preference.fromJson(Map<String, dynamic> json)
       : name = json['name'] ?? "",
@@ -24,20 +27,26 @@ class Preference {
 }
 
 class PrefRating {
+  String $id;
   String prefId;
   String userId;
   int rating;
 
   PrefRating(
-      {required this.prefId, required this.userId, required this.rating});
+      {required this.$id,
+      required this.prefId,
+      required this.userId,
+      required this.rating});
 
   PrefRating.fromJson(Map<String, dynamic> json)
-      : prefId = json['prefId'] ?? "",
+      : $id = json[r'$id'] ?? "",
+        prefId = json['prefId'] ?? "",
         userId = json['userId'] ?? "",
         rating = json['rating'] ?? -1;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data[r'$id'] = this.$id;
     data['prefId'] = this.prefId;
     data['userId'] = this.userId;
     data['rating'] = this.rating;
@@ -51,9 +60,7 @@ class PrefStatement {
   String statement;
 
   PrefStatement(
-      {required this.prefId,
-      required this.rating,
-      required this.statement});
+      {required this.prefId, required this.rating, required this.statement});
 
   PrefStatement.fromJson(Map<String, dynamic> json)
       : prefId = json['prefId'] ?? "",
