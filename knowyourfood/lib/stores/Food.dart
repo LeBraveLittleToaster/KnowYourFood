@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:knowyourfood/stores/Preference.dart';
 
 class Food {
@@ -14,13 +16,15 @@ class Food {
       required this.description,
       required this.prefs});
 
-  Food.fromJson(Map<String, dynamic> json)
-      : foodId = json['foodId'],
-        name = json['name'],
-        brandName = json['brandName'],
-        description = json['description'],
-        prefs = json['prefs'] != null
-            ? List.from(json['prefs'].map((x) => PrefStatement.fromJson(x)))
+  Food.fromJson(Map<String, dynamic> jsonData)
+      : foodId = jsonData['foodId'],
+        name = jsonData['name'],
+        brandName = jsonData['brandName'],
+        description = jsonData['description'],
+        prefs = jsonData['prefs'] != null
+            ? List<PrefStatement>.from(jsonData['prefs'].map((x) {
+                return PrefStatement.fromJson(x.runtimeType == String ? jsonDecode(x) : x);
+              }))
             : [];
 
   Map<String, dynamic> toJson() {

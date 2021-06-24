@@ -58,20 +58,23 @@ class PrefStatement {
   String prefId;
   int rating;
   String statement;
+  String prefName;
 
   PrefStatement(
-      {required this.prefId, required this.rating, required this.statement});
+      {required this.prefId, required this.rating, required this.statement, required this.prefName});
 
   PrefStatement.fromJson(Map<String, dynamic> json)
       : prefId = json['prefId'] ?? "",
         rating = json['rating'] ?? -1,
-        statement = json['statement'] ?? "";
+        statement = json['statement'] ?? "",
+        prefName = json['prefName'] ?? "";
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['prefId'] = this.prefId;
     data['rating'] = this.rating;
     data['statement'] = this.statement;
+    data['prefName'] = this.prefName;
     return data;
   }
 }

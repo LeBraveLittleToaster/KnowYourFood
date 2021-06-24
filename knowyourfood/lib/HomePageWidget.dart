@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:knowyourfood/PrefPageWidget.dart';
 import 'package:knowyourfood/scanner/ScanPageWidget.dart';
+import 'package:knowyourfood/shopview/RegisterFoodList.dart';
 import 'package:knowyourfood/shopview/RegisterFoodWidget.dart';
 import 'package:knowyourfood/stores/LoginStore.dart';
+import 'package:knowyourfood/stores/PreferenceStore.dart';
 import 'package:provider/provider.dart';
 
 class HomePageWidget extends StatefulWidget {
@@ -25,8 +27,12 @@ class _HomePageState extends State<HomePageWidget> {
         return ScanPageWidget();
       case 1:
         return PrefPageWidget();
+      case 2:
+        return RegisterFoodList();
       default:
-        return RegisterFoodWidget();
+        return Consumer<PreferenceStore>(
+            builder: (context, prefStore, child) =>
+                RegisterFoodWidget(prefStore.prefs));
     }
   }
 

@@ -49,7 +49,6 @@ class _PrefPageState extends State<PrefPageWidget> {
               actionPane: SlidableDrawerActionPane(),
               actionExtentRatio: 0.25,
               child: Container(
-                color: Colors.white,
                 child: ListTile(
                   trailing: ratingColor == null
                       ? null

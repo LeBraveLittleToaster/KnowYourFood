@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:knowyourfood/HomePageWidget.dart';
 import 'package:knowyourfood/login/LoginPageWidget.dart';
+import 'package:knowyourfood/stores/FoodStore.dart';
 import 'package:knowyourfood/stores/PreferenceStore.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   static var projectId = "60cf200213d70";
   static var prefsColId = "60cf38bba8397";
   static var prefsRatingColId = "60cf383f29bac";
+  static var foodColId = "60cf26aa68cd7";
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +31,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<LoginStore>(
           create: (_) => LoginStore(client: client).setupClient(),
         ),
+        ChangeNotifierProvider<FoodStore>(
+          create: (_) => FoodStore(client: client).initStore(),
+        ),
+        ChangeNotifierProvider<PreferenceStore>(
+        create: (_) => PreferenceStore(client: client).initPreferences())
       ],
       builder: (context, child) => MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData.dark(),
         home: MyHomePage(title: 'Flutter Demo Home Page', client: client),
       ),
     );
@@ -68,10 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (!loginStore.isLoggedIn) {
         return LoginPageWidget(loginStore: loginStore);
       }
-      return ChangeNotifierProvider<PreferenceStore>(
-        create: (_) => PreferenceStore(client: widget.client).initPreferences(),
-        child: HomePageWidget(),
-      );
+      return HomePageWidget();
     });
   }
 }
