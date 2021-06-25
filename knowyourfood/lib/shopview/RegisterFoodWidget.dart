@@ -22,11 +22,18 @@ class RegisterFoodData {
   TextEditingController statementText;
   String prefName;
 
-  RegisterFoodData({required this.prefId, required this.statementText, required this.prefName});
+  RegisterFoodData(
+      {required this.prefId,
+      required this.statementText,
+      required this.prefName});
 
   PrefStatement getStatement() {
     return PrefStatement(
-        prefId: prefId, rating: rating, statement: statementText.text, prefName: prefName);
+        id: "",
+        prefId: prefId,
+        rating: rating,
+        statement: statementText.text,
+        prefName: prefName);
   }
 
   bool isStatementComplete() {
@@ -106,6 +113,7 @@ class _RegisterFoodState extends State<RegisterFoodWidget> {
     _foodData.forEach((e) {
       if (e.prefId.length > 0 && e.statementText.text.length > 0) {
         filledStatements.add(PrefStatement(
+            id: "",
             prefId: e.prefId,
             rating: e.rating,
             statement: e.statementText.text,
@@ -113,6 +121,7 @@ class _RegisterFoodState extends State<RegisterFoodWidget> {
       }
     });
     Food food = Food(
+        id: "",
         brandName: _brandNameController.text,
         description: _descriptionNameController.text,
         foodId: "",

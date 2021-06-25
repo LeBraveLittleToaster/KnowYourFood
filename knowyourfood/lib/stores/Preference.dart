@@ -1,17 +1,20 @@
 class Preference {
+  String id;
   String name;
   String prefId;
   String description;
   String category;
 
   Preference(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.prefId,
       required this.description,
       required this.category});
 
   Preference.fromJson(Map<String, dynamic> json)
-      : name = json['name'] ?? "",
+      : id = json[r'$id'] ?? "",
+        name = json['name'] ?? "",
         prefId = json['prefId'] ?? "",
         description = json['description'] ?? "",
         category = json['category'] ?? "";
@@ -55,16 +58,22 @@ class PrefRating {
 }
 
 class PrefStatement {
+  String id;
   String prefId;
   int rating;
   String statement;
   String prefName;
 
   PrefStatement(
-      {required this.prefId, required this.rating, required this.statement, required this.prefName});
+      {required this.id,
+      required this.prefId,
+      required this.rating,
+      required this.statement,
+      required this.prefName});
 
   PrefStatement.fromJson(Map<String, dynamic> json)
-      : prefId = json['prefId'] ?? "",
+      : id = json[r'$id'] ?? "",
+        prefId = json['prefId'] ?? "",
         rating = json['rating'] ?? -1,
         statement = json['statement'] ?? "",
         prefName = json['prefName'] ?? "";

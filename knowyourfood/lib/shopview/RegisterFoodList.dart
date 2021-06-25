@@ -62,7 +62,7 @@ class RegisterFoodList extends StatelessWidget {
                               builder: (context) => Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: QrImage(
-                                  data: foodStore.food[foodIndex].foodId,
+                                  data: foodStore.food[foodIndex].id,
                                   version: QrVersions.auto,
                                   backgroundColor: Colors.white,
                                   foregroundColor: Colors.black,

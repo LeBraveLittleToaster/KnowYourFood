@@ -25,9 +25,27 @@ class PreferenceStore extends ChangeNotifier {
     return this;
   }
 
-  Future<List<Preference>> getFilteredPreferences(List<String> prefIds) {
+  Future<List<Preference>> getFilteredPreferences(List<String> prefIds) async {
     Database db = Database(client);
     Completer<List<Preference>> completer = new Completer();
+    
+    var futures = <Future<Response<dynamic>>>[];
+
+    for (String id in prefIds) {
+      futures
+          .add(db.getDocument(collectionId: MyApp.prefsColId, documentId: id));
+    }
+
+    try {
+      List<Preference> loadedPrefs =
+          (await Future.wait<Response<dynamic>>(futures))
+              .map((e) => Preference.fromJson(jsonDecode(e.toString())))
+              .toList();
+      print("LOADED PREFS: " + loadedPrefs.toString());
+    } catch (error, stacktrace) {
+      completer.completeError("Parsing or loading error");
+    }
+
     return completer.future;
   }
 
@@ -77,7 +95,7 @@ class PreferenceStore extends ChangeNotifier {
       print("Creating document");
       Response<dynamic> resp = await db.createDocument(
           collectionId: MyApp.prefsRatingColId,
-          data: {"prefId": prefId, "userId": userId, "rating": rating} );
+          data: {"prefId": prefId, "userId": userId, "rating": rating});
       PrefRating prefR = PrefRating.fromJson(json.decode(resp.toString()));
       userRatings.add(prefR);
       notifyListeners();

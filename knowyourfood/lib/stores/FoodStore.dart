@@ -38,9 +38,10 @@ class FoodStore extends ChangeNotifier {
     food.foodId = Uuid().v4();
 
     Database database = Database(client);
-    database
-        .createDocument(collectionId: MyApp.foodColId, data: food.toJson(), read: ["*"])
-        .then((value) {
+    database.createDocument(
+        collectionId: MyApp.foodColId,
+        data: food.toJson(),
+        read: ["*"]).then((value) {
       print("RESPONSE: " + value.toString());
       this.food.add(food);
       notifyListeners();
@@ -51,4 +52,19 @@ class FoodStore extends ChangeNotifier {
     });
     return completer.future;
   }
+
+  Future<Food> loadFoodFromId(String scannedFoodDocumentId) async {
+    Completer<Food> completer = new Completer();
+    Database database = Database(client);
+    Response<dynamic> resp = await database.getDocument(
+        collectionId: MyApp.foodColId, documentId: scannedFoodDocumentId);
+
+    try {
+      completer.complete(Food.fromJson(jsonDecode(resp.toString())));
+    } catch (error, stacktrace) {
+      completer.completeError("Failed to load");
+    }
+    return completer.future;
+  }
+
 }
