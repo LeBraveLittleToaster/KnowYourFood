@@ -9,6 +9,8 @@ In the folder "Showroom", you can find some screenshots from the app.
 
 ## Database Settings
 
+Unfortunatly I have no server running, but you can setup your instance with these collections and changing the IP in the MainApp part :) 
+
 These database settings are used in the appwrite instance to run it. Neither functions nor webhooks were used that should be set up.
 
 > Food Collection
