@@ -32,7 +32,7 @@ class _ScanPageState extends State<ScanPageWidget> {
 
     _onScanStart() async {
       _checkPermissions();
-      String scannedFoodId = await scanner.scan();
+      String scannedFoodId = await scanner.scan() ?? "";
       print("SCANNED: " + scannedFoodId);
       Food? food =
           await Provider.of<FoodStore>(context, listen: false).loadFoodFromId(scannedFoodId);
