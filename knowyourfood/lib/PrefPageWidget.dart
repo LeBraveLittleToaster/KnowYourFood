@@ -19,7 +19,7 @@ class _PrefPageState extends State<PrefPageWidget> {
       if (prefStore.isLoading) {
         return Center(
           child: SpinKitChasingDots(
-            color: Colors.accents[0],
+            color: Colors.yellow[700],
           ),
         );
       } else {
@@ -49,14 +49,38 @@ class _PrefPageState extends State<PrefPageWidget> {
               actionPane: SlidableDrawerActionPane(),
               actionExtentRatio: 0.25,
               child: Container(
-                child: ListTile(
-                  trailing: ratingColor == null
-                      ? null
-                      : IconTheme(
-                          data: IconThemeData(color: ratingColor),
-                          child: Icon(Icons.circle)),
-                  title: Text(prefStore.prefs[index].name),
-                  subtitle: Text(prefStore.prefs[index].description),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16))),
+                    tileColor: Color.fromRGBO(255, 255, 255, .2),
+                    trailing: ratingColor == null
+                        ? null
+                        : IconTheme(
+                            data: IconThemeData(color: ratingColor),
+                            child: Icon(Icons.circle)),
+                    title: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(
+                        prefStore.prefs[index].name,
+                        style: TextStyle(
+                            color: Colors.yellow[700],
+                            fontSize: 21,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 4, 16),
+                      child: Text(
+                        prefStore.prefs[index].description,
+                        style: TextStyle(
+                            color: Colors.grey[800],
+                            fontSize: 16,
+                            fontWeight: FontWeight.w900),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               secondaryActions: <Widget>[
@@ -65,7 +89,8 @@ class _PrefPageState extends State<PrefPageWidget> {
                   color: Colors.red,
                   icon: Icons.arrow_downward,
                   onTap: () => {
-                    prefStore.addOrUpdateRating(1, prefStore.prefs[index].prefId)
+                    prefStore.addOrUpdateRating(
+                        1, prefStore.prefs[index].prefId)
                   },
                 ),
                 IconSlideAction(
@@ -73,7 +98,8 @@ class _PrefPageState extends State<PrefPageWidget> {
                   color: Colors.orange,
                   icon: Icons.remove,
                   onTap: () => {
-                    prefStore.addOrUpdateRating(2, prefStore.prefs[index].prefId)
+                    prefStore.addOrUpdateRating(
+                        2, prefStore.prefs[index].prefId)
                   },
                 ),
                 IconSlideAction(
@@ -81,7 +107,8 @@ class _PrefPageState extends State<PrefPageWidget> {
                   color: Colors.green,
                   icon: Icons.arrow_upward,
                   onTap: () => {
-                    prefStore.addOrUpdateRating(3, prefStore.prefs[index].prefId)
+                    prefStore.addOrUpdateRating(
+                        3, prefStore.prefs[index].prefId)
                   },
                 )
               ],

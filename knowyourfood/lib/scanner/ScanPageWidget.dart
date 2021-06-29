@@ -32,7 +32,7 @@ class _ScanPageState extends State<ScanPageWidget> {
 
     _onScanStart() async {
       _checkPermissions();
-      String scannedFoodId = await scanner.scan() ?? "";
+      String scannedFoodId = await scanner.scan();
       print("SCANNED: " + scannedFoodId);
       Food? food =
           await Provider.of<FoodStore>(context, listen: false).loadFoodFromId(scannedFoodId);
@@ -49,8 +49,10 @@ class _ScanPageState extends State<ScanPageWidget> {
         Align(
           alignment: Alignment.bottomRight,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: FloatingActionButton(
+              foregroundColor: Colors.yellow[700],
+              backgroundColor: Colors.grey[850],
               onPressed: () => _onScanStart(),
               child: Icon(Icons.photo_camera),
             ),

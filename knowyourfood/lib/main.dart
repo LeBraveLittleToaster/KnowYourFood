@@ -64,9 +64,23 @@ class _MyHomePageState extends State<MyHomePage> {
       print("Is Loading: " + loginStore.isLoading.toString());
       print("Is Logged in: " + loginStore.isLoggedIn.toString());
       if (loginStore.isLoading) {
-        return Scaffold(
-          body: SpinKitChasingDots(
-            color: Colors.orange,
+        return Container(
+          decoration: BoxDecoration(gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          stops: [0.1, 0.5, 0.7, 0.9],
+          colors: [
+            Colors.green[800]!,
+            Colors.green[700]!,
+            Colors.green[600]!,
+            Colors.green[400]!,
+          ],
+        ),),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: SpinKitChasingDots(
+              color: Colors.orange,
+            ),
           ),
         );
       }

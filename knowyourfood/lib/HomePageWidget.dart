@@ -39,18 +39,32 @@ class _HomePageState extends State<HomePageWidget> {
   @override
   Widget build(BuildContext context) {
     LoginStore loginStore = Provider.of<LoginStore>(context, listen: false);
-    return Scaffold(
-      appBar: getAppBar(loginStore),
-      body: Center(child: getPage(_selectedIndex)),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.qr_code_2), label: "Scan"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Pref"),
-          BottomNavigationBarItem(icon: Icon(Icons.share), label: "Share"),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.accents[0],
-        onTap: _onItemTapped,
+    return Container(
+      decoration: BoxDecoration(gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          stops: [0.1, 0.5, 0.7, 0.9],
+          colors: [
+            Colors.green[800]!,
+            Colors.green[700]!,
+            Colors.green[600]!,
+            Colors.green[400]!,
+          ],
+        ),),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: getAppBar(loginStore),
+        body: Center(child: getPage(_selectedIndex)),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.qr_code_2), label: "Scan"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Pref"),
+            BottomNavigationBarItem(icon: Icon(Icons.share), label: "Share"),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.yellow[700],
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
@@ -61,7 +75,10 @@ class _HomePageState extends State<HomePageWidget> {
 
   AppBar getAppBar(LoginStore loginStore) {
     return AppBar(
-      title: Text("Home"),
+      title: Text("KnowYourFood",style: TextStyle(
+                  color: Colors.grey[300],
+                  fontSize: 20
+                  ,fontWeight: FontWeight.bold),),
       actions: [
         IconButton(
             onPressed: () => logout(loginStore), icon: Icon(Icons.logout))

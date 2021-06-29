@@ -47,11 +47,17 @@ class _FoodCheckState extends State<FoodCheckWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SpinKitChasingDots(
-              color: Colors.red,
+              color: Colors.yellow[700],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Scan QRCode..."),
+              child: Text(
+                "Press button to scan QRCode...",
+                style: TextStyle(
+                  color: Colors.grey[300],
+                  fontSize: 15
+                  ,fontWeight: FontWeight.w600),
+              ),
             ),
           ],
         ),
@@ -108,18 +114,24 @@ class _FoodCheckState extends State<FoodCheckWidget> {
             ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            generateComparisonIcon(prefStatement, rating ?? null)
-          ],
+          children: [generateComparisonIcon(prefStatement, rating ?? null)],
         ));
   }
 
   Icon generateComparisonIcon(PrefStatement statement, PrefRating? rating) {
-    if(statement.rating == -1) return Icon(Icons.check_box_outline_blank_outlined, color: Colors.grey,);
-    if( rating == null) return Icon(Icons.check_box_outlined, color: Colors.grey,);
-    if(statement.rating == rating.rating || statement.rating > rating.rating){
+    if (statement.rating == -1)
+      return Icon(
+        Icons.check_box_outline_blank_outlined,
+        color: Colors.grey,
+      );
+    if (rating == null)
+      return Icon(
+        Icons.check_box_outlined,
+        color: Colors.grey,
+      );
+    if (statement.rating == rating.rating || statement.rating > rating.rating) {
       return Icon(Icons.check_box_outlined, color: Colors.green);
-    }else {
+    } else {
       return Icon(Icons.check_box_outline_blank_outlined, color: Colors.red);
     }
   }

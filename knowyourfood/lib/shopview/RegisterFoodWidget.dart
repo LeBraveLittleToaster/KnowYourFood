@@ -90,6 +90,8 @@ class _RegisterFoodState extends State<RegisterFoodWidget> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        foregroundColor: Colors.grey[800],
+        backgroundColor: Colors.yellow[700],
         onPressed: this._isUploadLocked
             ? null
             : () async {

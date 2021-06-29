@@ -34,45 +34,84 @@ class _LoginPageState extends State<LoginPageWidget> {
         .login(this._unameController.text, this._pwController.text);
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Some title"),
-      ),
-      body: widget.loginStore.isLoading
-          ? SpinKitChasingDots(
-              color: Colors.blueGrey,
-            )
-          : Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextField(
-                    controller: _unameController,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), labelText: "Username"),
+    return Container(
+      decoration: BoxDecoration(gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          stops: [0.1, 0.5, 0.7, 0.9],
+          colors: [
+            Colors.green[800]!,
+            Colors.green[700]!,
+            Colors.green[600]!,
+            Colors.green[400]!,
+          ],
+        ),),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: widget.loginStore.isLoading
+            ? SpinKitChasingDots(
+                color: Colors.blueGrey,
+              )
+            : Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 16, 8, 0),
+                        child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Image.asset("assets/brain.png")),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 0, 8, 48),
+                        child: Text(
+                          "KnowYourFood",
+                          style: TextStyle(
+                            fontSize: 27,
+                            fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: _unameController,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Username"),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: _pwController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Password"),
+                        ),
+                      ),
+                    ],
                   ),
-                  TextField(
-                    controller: _pwController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), labelText: "Password"),
-                  ),
-                ],
+                ),
               ),
+        floatingActionButton: Stack(children: [
+          Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              foregroundColor: Colors.yellow[700],
+              backgroundColor: Colors.grey[800],
+              onPressed: () => _login(),
+              tooltip: 'Login',
+              child: Icon(Icons.login),
             ),
-      floatingActionButton: Stack(children: [
-        Align(
-          alignment: Alignment.bottomRight,
-          child: FloatingActionButton(
-            onPressed: () => _login(),
-            tooltip: 'Login',
-            child: Icon(Icons.login),
-          ),
-        )
-      ]),
+          )
+        ]),
+      ),
     );
   }
 }
