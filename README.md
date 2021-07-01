@@ -10,8 +10,11 @@ In the folder "Showroom", you can find some screenshots from the app.
 
 Screenshots | Screenshots
  :--:|:---:
+ Login page | Setting Preferences
 ![Login page](https://github.com/LeBraveLittleToaster/KnowYourFood/blob/main/Showroom/Login.jpg) | ![Setting Preferences](https://github.com/LeBraveLittleToaster/KnowYourFood/blob/main/Showroom/Choose_Preference_Openend.jpg)
+Creating food and rate it | List of your food
 ![Creating food and rate it](https://github.com/LeBraveLittleToaster/KnowYourFood/blob/main/Showroom/Create_Food_With_Ratings.jpg) | ![List of your food](https://github.com/LeBraveLittleToaster/KnowYourFood/blob/main/Showroom/List_Of_Your_Food.jpg)
+QR code generator | QR code scanner
 ![QR code generator](https://github.com/LeBraveLittleToaster/KnowYourFood/blob/main/Showroom/On_Test_Food_Clicked.jpg) | ![QR code scanner](https://github.com/LeBraveLittleToaster/KnowYourFood/blob/main/Showroom/QR_Code_Scanning.jpg)
 
 ## Database Settings
